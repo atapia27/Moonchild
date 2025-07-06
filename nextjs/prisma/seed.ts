@@ -1,45 +1,25 @@
-import { PrismaClient, Prisma } from '@prisma/client'
-import { withAccelerate } from '@prisma/extension-accelerate'
+import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient().$extends(withAccelerate())
+const prisma = new PrismaClient();
 
-const userData: Prisma.UserCreateInput[] = [
-  {
-    name: 'Alice',
-    email: 'alice@prisma.io',
-    posts: {
-      create: [
-        {
-          title: 'Join the Prisma Discord',
-          content: 'https://pris.ly/discord',
-          published: true,
-        },
-        {
-          title: 'Prisma on YouTube',
-          content: 'https://pris.ly/youtube',
-        },
-      ],
+async function main() {
+  const tag = await prisma.tag.create({
+    data: { name: 'General' },
+  });
+
+  await prisma.note.create({
+    data: {
+      content: 'Welcome to your new Prisma schema!',
+      tags: { connect: [{ id: tag.id }] },
     },
-  },
-  {
-    name: 'Bob',
-    email: 'bob@prisma.io',
-    posts: {
-      create: [
-        {
-          title: 'Follow Prisma on Twitter',
-          content: 'https://www.twitter.com/prisma',
-          published: true,
-        },
-      ],
-    },
-  },
-]
-
-export async function main() {
-  for (const u of userData) {
-    await prisma.user.create({ data: u })
-  }
+  });
 }
 
 main()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

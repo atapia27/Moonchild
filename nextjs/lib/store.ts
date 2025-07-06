@@ -1,13 +1,9 @@
-import { create } from "zustand";
+/*Example Use Cases	
 
-interface ExampleState {
-  count: number;
-  increment: () => void;
-  reset: () => void;
-}
-
-export const useExampleStore = create<ExampleState>((set) => ({
-  count: 0,
-  increment: () => set((state) => ({ count: state.count + 1 })),
-  reset: () => set({ count: 0 }),
-}));
+SSR hydration flags (isHydrated, etc.)    Technical concern, not a feature
+Client-side vs server-side detection	    Platform concern
+Connection status to external services    Infra concern
+Environment config state	                Build/runtime concern
+Developer-only debug toggles	            Development concern
+Feature flag resolution	                  Platform concern, not a UI feature
+*/

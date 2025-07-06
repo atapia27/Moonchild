@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,6 +7,30 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+//// RESET PRISMA
+/*
+npx prisma db push
+npx prisma generate
+...
+write seed file
+...
+npx prisma db seed
+*/
+
+model Note {
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now())
+  tags      Tag[]   
+}
+
+model Tag {
+  id    Int    @id @default(autoincrement())
+  name  String
+  notes Note[] 
+}
+
+/*
 model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
@@ -28,3 +46,4 @@ model Post {
   authorId  Int
   author    User    @relation(fields: [authorId], references: [id])
 }
+*/
