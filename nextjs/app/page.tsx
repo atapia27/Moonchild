@@ -1,19 +1,20 @@
-import prisma from "@/lib/prisma";
+'use client'
 
-export default async function Home() {
-  const users = await prisma.user.findMany();
+import Layout from "@/components/Layout";
+import Button from "@/components/Button";
+import Input from "@/components/Input";
+
+export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center -mt-16">
-      <h1 className="text-4xl font-bold mb-8 font-[family-name:var(--font-geist-sans)] text-[#333333]">
-        Superblog
-      </h1>
-      <ol className="text-black list-decimal list-inside font-[family-name:var(--font-geist-sans)]">
-        {users.map((user) => (
-          <li key={user.id} className="mb-2 text-black">
-            {user.name}
-          </li>
-        ))}
-      </ol>
-    </div>
+    <Layout>
+      <h2 className="mb-4 text-lg font-semibold">Example Usage</h2>
+<Button variant="primary">Save</Button>
+<Button variant="secondary">Cancel</Button>
+<Button variant="danger">Delete</Button>
+
+<Input variant="default" placeholder="Your name" />
+<Input variant="error" placeholder="Invalid input" />
+
+    </Layout>
   );
 }
