@@ -1,13 +1,13 @@
-import { create } from "zustand";
+import { create } from 'zustand'
 
 // 1. Define state shape
 interface PostState {
-  selectedPostId: number | null;
+  selectedPostId: number | null
 }
 
 // 2. Define actions shape
 interface PostActions {
-  setSelectedPostId: (id: number | null) => void;
+  setSelectedPostId: (id: number | null) => void
 }
 
 // 3. Combine into the store
@@ -17,4 +17,4 @@ export const usePostStore = create<PostState & PostActions>((set) => ({
 
   // Actions
   setSelectedPostId: (id) => set({ selectedPostId: id }),
-}));
+}))
